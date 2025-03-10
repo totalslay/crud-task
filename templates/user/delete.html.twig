@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Удалить пользователя{% endblock %}
+
+{% block body %}
+    <h1>Удалить пользователя</h1>
+
+    <p>Вы уверены, что хотите удалить пользователя "{{ user.name }}"?</p>
+
+    <form method="POST" action="{{ path('delete_user', { user: user.id }) }}/del">
+        <input type="hidden" name="_method" value="DELETE">
+        <button class="btn">Удалить</button>
+    </form>
+
+    <a href="{{ path('index_user') }}">Назад к пользователям</a>
+{% endblock %}
