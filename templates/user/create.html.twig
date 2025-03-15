@@ -13,6 +13,12 @@
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="telegram" placeholder="Telegram" required>
         <input type="text" name="address" placeholder="Адрес" required>
+        <select name="department" required>
+            <option value="">Выберите отдел</option>
+            {% for department in departments %}
+                <option value="{{ department.id }}">{{ department.name }}</option>
+            {% endfor %}
+        </select>
         <button type="submit">Создать</button>
     </form>
 

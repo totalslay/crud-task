@@ -20,6 +20,7 @@
             <option value="email" {% if app.request.get('sort') == 'email' %}selected{% endif %}>Email</option>
             <option value="telegram" {% if app.request.get('sort') == 'telegram' %}selected{% endif %}>Telegram</option>
             <option value="address" {% if app.request.get('sort') == 'address' %}selected{% endif %}>Адрес</option>
+            <option value="department.name" {% if app.request.get('sort') == 'department.name' %}selected{% endif %}>Отдел</option>
         </select>
     </form>
 
@@ -33,6 +34,7 @@
                 <th>Email</th>
                 <th>Telegram</th>
                 <th>Адрес</th>
+                <th>Отдел</th>
                 <th>Действия</th>
             </tr>
         </thead>
@@ -46,6 +48,7 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.telegram }}</td>
                     <td>{{ user.address }}</td>
+                    <td>{{ user.department ? user.department.name : 'Нет отдела' }}</td>
                     <td>  
                         <a href="{{ path('edit_user', { 'user': user.id }) }}">Редактировать</a>
                         <form method="POST" action="{{ path('delete_user', { 'user': user.id }) }}" style="display:inline;">
@@ -55,7 +58,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="8">Нет пользователей.</td>
+                    <td colspan="9">Нет пользователей.</td>
                 </tr>
             {% endfor %}
         </tbody>

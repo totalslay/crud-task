@@ -35,6 +35,10 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Department")]
+    #[ORM\JoinColumn(name: "department_id", referencedColumnName: "id")]
+    private $department;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,4 +127,16 @@ class User
 
         return $this;
     }
+
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self 
+    {
+        $this->department = $department;
+        return $this;
+    }
+    
 }
