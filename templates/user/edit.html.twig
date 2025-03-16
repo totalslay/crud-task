@@ -6,6 +6,7 @@
     <h1>Редактировать пользователя</h1>
 
     <form method="POST" action="{{ path('update_user', { 'user': user.id }) }}">
+    <input type="hidden" name="_method" value="PUT">
         <input type="text" name="first_name" value="{{ user.firstName }}" required>
         <input type="text" name="last_name" value="{{ user.lastName }}" required>
         <input type="number" name="age" value="{{ user.age }}" required>

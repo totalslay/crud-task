@@ -90,7 +90,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{user}', name: 'update_user', methods: ['POST'])]
+    #[Route('/user/{user}', name: 'update_user', methods: ['PUT'])]
     public function update(Request $request, User $user, EntityManagerInterface $em): Response
     {
         $user->setFirstName($request->request->get('first_name'));
@@ -111,7 +111,7 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('edit_user', ['user' => $user->getId()]);
     }
 
-    #[Route('/user/{user}/del', name: 'delete_user', methods: ['POST'])]
+    #[Route('/user/{user}/del', name: 'delete_user', methods: ['DELETE'])]
     public function delete(User $user, EntityManagerInterface $em): Response 
     {
         $em->remove($user);
