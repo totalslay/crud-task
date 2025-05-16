@@ -1,12 +1,8 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Редактировать пользователя{% endblock %}
-
 {% block body %}
     <h1>Редактировать пользователя</h1>
 
-    <form method="POST" action="{{ path('update_user', { 'user': user.id }) }}">
-    <input type="hidden" name="_method" value="PUT">
+    <form method="POST" action="{{ path('update_user', { 'user': user.id }) }}" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
         <input type="text" name="first_name" value="{{ user.firstName }}" required>
         <input type="text" name="last_name" value="{{ user.lastName }}" required>
         <input type="number" name="age" value="{{ user.age }}" required>
@@ -14,13 +10,14 @@
         <input type="email" name="email" value="{{ user.email }}" required>
         <input type="text" name="telegram" value="{{ user.telegram }}" required>
         <input type="text" name="address" value="{{ user.address }}" required>
+        <input type="file" name="avatar" accept="image/*"> 
         <select name="department" required>
             <option value="">Выберите отдел</option>
             {% for department in departments %}
                 <option value="{{ department.id }}" {% if user.department and user.department.id == department.id %}selected{% endif %}>{{ department.name }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Сохранить изменения</button>
+        <button type="submit">Сохранить изменения</button>      
     </form>
 
     <a href="{{ path('index_user') }}">Назад</a>

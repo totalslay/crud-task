@@ -8,6 +8,8 @@ use App\Repository\UserRepository;
 use App\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -64,6 +66,20 @@ final class UserController extends AbstractController
         $department = $em->getRepository(Department::class)->find($departmentId);
         $user->setDepartment($department); 
         }
+        $file = $request->files->get('avatar');
+        if ($file) {
+            $filename = uniqid() . '.' . $file->guessExtension();
+            try{
+                $file->move(
+                    $this->getParameter('avatars_directory'), 
+                    $filename
+                );
+                $user->setAvatar($filename);            
+            } catch (FileException $e){
+
+            }
+        }
+
         $em->persist($user);
         $em->flush();
 
@@ -104,6 +120,20 @@ final class UserController extends AbstractController
         if ($departmentId) {
         $department = $em->getRepository(Department::class)->find($departmentId);
         $user->setDepartment($department); 
+        }
+
+        $file = $request->files->get('avatar');
+        if ($file) {
+            $filename = uniqid() . '.' . $file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter('avatars_directory'),
+                    $filename
+                );
+                $user->setAvatar($filename);
+            } catch (FileException $e) {
+
+            }
         }
 
         $em->flush();

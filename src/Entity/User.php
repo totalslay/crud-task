@@ -35,6 +35,21 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    #[ORM\Column(type:"string", nullable: true)]
+private ?string $avatar = null;
+
+public function getAvatar(): ?string
+{
+    return $this->avatar;
+}
+
+public function setAvatar(?string $avatar): static
+{
+    $this->avatar = $avatar;
+
+    return $this;
+}
+
     #[ORM\ManyToOne(targetEntity: "App\Entity\Department")]
     #[ORM\JoinColumn(name: "department_id", referencedColumnName: "id")]
     private $department;

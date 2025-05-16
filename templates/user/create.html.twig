@@ -1,11 +1,7 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Создать пользователя{% endblock %}
-
 {% block body %}
     <h1>Создать пользователя</h1>
 
-    <form action="{{ path('create_user') }}" method="POST">
+    <form action="{{ path('create_user') }}" method="POST" enctype="multipart/form-data">
         <input type="text" name="first_name" placeholder="Имя" required>
         <input type="text" name="last_name" placeholder="Фамилия" required>
         <input type="number" name="age" placeholder="Возраст" required>
@@ -13,13 +9,14 @@
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="telegram" placeholder="Telegram" required>
         <input type="text" name="address" placeholder="Адрес" required>
+        <input type="file" name="avatar" accept="image/*"> 
         <select name="department" required>
             <option value="">Выберите отдел</option>
             {% for department in departments %}
                 <option value="{{ department.id }}">{{ department.name }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Создать</button>
+        <button type="submit">Создать</button>   
     </form>
 
     <a href="{{ path('index_user') }}">Назад</a>
